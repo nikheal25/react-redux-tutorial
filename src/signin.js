@@ -82,18 +82,6 @@ export default function SignIn() {
       .then(
         (response) => {
           console.log(response);
-          if (response.data) {
-            if (response.data === "SUCCESS") {
-              console.log("SuccessFullll redirecting");
-              // history.push("/assets");
-            } else {
-              console.log("Unsucessfull");
-              //TODO show message
-            }
-          } else {
-            console.log("Unsucessfull");
-            //TODO show message
-          }
         },
         (error) => {
           console.log(error);
