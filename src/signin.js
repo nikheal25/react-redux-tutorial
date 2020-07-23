@@ -14,6 +14,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import axios from "axios";
 
+//REDUX connect
+import { connect } from "react-redux";
+import { setAlert } from "./actions/alert";
 var email = "";
 var password = "";
 
@@ -50,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+export default connect(null, { setAlert })(function SignIn(props) {
   const classes = useStyles();
 
   const handleChange = (event) => {
@@ -81,10 +84,14 @@ export default function SignIn() {
       })
       .then(
         (response) => {
-          console.log(response);
+          console.log(response.data);
         },
         (error) => {
-          console.log(error);
+          console.log(error.response.data);
+          if (error.response.data === "email or password is wrong") {
+            console.log("invalid ");
+            props.setAlert("IT is not match", "danger");
+          }
           //TODO show message
         }
       );
@@ -156,4 +163,4 @@ export default function SignIn() {
       </Box>
     </Container>
   );
-}
+});
