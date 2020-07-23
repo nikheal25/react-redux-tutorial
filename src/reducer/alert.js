@@ -1,6 +1,7 @@
 import { SET_ALERT, REMOVE_ALERT } from "../actions/type";
 const initialState = [];
 
+console.log("State started");
 export default function (state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
