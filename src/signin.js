@@ -14,6 +14,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import axios from "axios";
 
+var email = "";
+var password = "";
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -50,12 +53,31 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn() {
   const classes = useStyles();
 
+  const handleChange = (event) => {
+    console.log(event.target.value);
+    const val = event.target.value;
+    console.log(event.target.name);
+    switch (event.target.name) {
+      case "email":
+        email = val;
+        break;
+      case "password":
+        password = val;
+        break;
+
+      default:
+        console.log("ERROR");
+        break;
+    }
+  };
+
   const axiosCall = (event) => {
-    // console.log(values);
+    console.log(event);
     event.preventDefault();
     axios
       .post("http://localhost:8081/user/authenticate", {
-        email: "nikheal@gmail.com",
+        email: email,
+        password: password,
       })
       .then(
         (response) => {
@@ -99,6 +121,7 @@ export default function SignIn() {
             label="Email Address"
             name="email"
             autoComplete="email"
+            onChange={handleChange}
             autoFocus
           />
           <TextField
@@ -110,6 +133,7 @@ export default function SignIn() {
             label="Password"
             type="password"
             id="password"
+            onChange={handleChange}
             autoComplete="current-password"
           />
           <FormControlLabel
